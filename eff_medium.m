@@ -86,7 +86,7 @@ implicit_expr_sub = subs(implicit_expr, {t, phi_c}, {params(1), params(2)});
 
 % Plot the data points
 figure;
-plot(phi, sigma, '^', 'DisplayName', 'Data');
+plot(phi, sigma, 'v', 'MarkerFaceColor', 'b', 'MarkerEdgeColor', 'b', 'DisplayName', 'Data');
 hold on;
 
 % Plot the implicit curve
