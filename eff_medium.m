@@ -95,8 +95,8 @@ set(gca, 'YScale', 'log'); % Set y-axis to logarithmic scale
 %title(['Data and Fitted Implicit Curve, R^2 = ', num2str(r_squared)]);
 xlabel('\phi volume fraction');
 ylabel('\sigma conductivity');
-legend('Experiments', ['Effective medium | \phi_c = ', num2str(params(2)), ...
-    ' | t = ', num2str(params(1))], 'Location', 'best');
+legend('Experiments', ['Effective medium | \phi_c = ', num2str(round(params(2),4)), ...
+    ' | t = ', num2str(round(params(1),2))], 'Location', 'best');
 ax = gca;
 ax.FontSize = 12;
 
