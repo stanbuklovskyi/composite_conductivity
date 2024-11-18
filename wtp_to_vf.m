@@ -21,7 +21,7 @@ function [out_array] = wtp_to_vf(in_array, reverse, ro_p, ro_m)
 arguments
     in_array;
     reverse = 0;
-    % default are for CB and UHMWPE
+    % default values are for CB and UHMWPE
     ro_p = 1.9;
     ro_m = 0.93;
 end
@@ -29,10 +29,12 @@ end
 if ~reverse
     in_array = in_array / 100.0;
     out_array = in_array ./ (in_array + (1 - in_array) .* (ro_p ./ ro_m));
+    disp("You converted wt% to volume fraction")
 else
-    disp("This part doesn't work now")
+    out_array = (in_array .* ro_p ./ ro_m) ./ (1 + in_array .* ((ro_p./ro_m) - 1));
+    out_array = out_array .* 100.0;
+    disp("You converted volume fraction to wt%")
 end
-
 
 end
 
