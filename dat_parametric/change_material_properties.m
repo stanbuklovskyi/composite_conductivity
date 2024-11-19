@@ -1,4 +1,4 @@
-function [new_file] = change_material_properties(filename,new_property_number)
+function [new_file] = change_material_properties(filename,new_property_number, search_word)
 
 % change_material_properties: Function Summary
 % This function takes some example .dat file "filename", changes material
@@ -14,14 +14,17 @@ function [new_file] = change_material_properties(filename,new_property_number)
 % to new_property_value. File is created in the current directory.
 %-----------------------------------------------------------------------------------------------
 
+arguments
+    filename;
+    new_property_number;
+    search_word = 'interphase';
+end
+
 % read/write files
 file_id = fopen([filename, '.dat'], 'r');
 
 new_file = [filename, '_prop', num2str(new_property_number), '.dat'];
 new_file_id = fopen(new_file, 'w');
-
-% input setup
-search_word = 'mat color';
 
 while ~feof(file_id)
 
