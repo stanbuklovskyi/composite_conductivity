@@ -8,6 +8,8 @@ function [new_file] = change_material_properties(filename,new_property_number, s
 %
 % filename - string, name of the example file without '.dat' extension
 % new_property_number - material property number you would like to have
+% search_word - char, key word for the name of the material to look for.
+% default "search_word" is 'interphase'
 %
 % Outputs: 
 % new_file - name of the newly created .dat file with a property changed...
