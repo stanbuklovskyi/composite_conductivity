@@ -16,6 +16,13 @@ function [new_file] = change_material_properties(filename,new_property_number, s
 % to new_property_value. File is created in the current directory.
 %-----------------------------------------------------------------------------------------------
 
+% to do: 
+% 1) Change setup for actual interphase key word
+% 2) Change textscan read format to read some positions char (see .dat)
+% 3) Don't forget to use Marc_format(new_property_number) for Marc format
+%
+%------------------------------------------------------------------------
+
 arguments
     filename;
     new_property_number;
