@@ -156,6 +156,12 @@ SSresid = sum(yresid.^2); % Residual sum of squares
 SStotal = (length(sigma_FEA)-1) * var(sigma_FEA); % Total sum of squares
 rsq = 1 - SSresid/SStotal; % R² calculation
 
+% coefficients for Kl vs. K_eff
+p_r = polyfit(sigma_FEA, K_layer, 1);
+% Display the equation for reference
+fprintf('The linear equation is: K_l = %.2f*K_ef + %.6f\n', p_r(1), ...
+    p_r(2));
+
 % plot
 figure(5)
 plot(K_layer, sigma_FEA, 'o') % original
