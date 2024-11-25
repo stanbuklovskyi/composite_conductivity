@@ -143,5 +143,32 @@ legend("Experimental", "Effective medium fit", "FEA results", 'Location',...
 ax = gca;
 ax.FontSize = 12;
 
+%% check if K_eff is linear with K_layer
+
+% values from effective medium equation
+K_layer = [1e-10; 0.80; 4.71; 13.35; 46.65; 252.24;1409.96; 3934.13];
+
+% check linearity with linear fit curve on data
+p = polyfit(K_layer, sigma_FEA, 1); % Linear fit (degree 1)
+yfit = polyval(p, K_layer); % Evaluate the fit
+yresid = sigma_FEA - yfit; % Residuals
+SSresid = sum(yresid.^2); % Residual sum of squares
+SStotal = (length(sigma_FEA)-1) * var(sigma_FEA); % Total sum of squares
+rsq = 1 - SSresid/SStotal; % R² calculation
+
+% plot
+figure(5)
+plot(K_layer, sigma_FEA, 'o') % original
+hold on
+plot(K_layer, yfit, '-') % Line of fit
+xlabel('K_l')
+ylabel('\sigma_F')
+title(['Linear Fit with R2 = ', num2str(rsq),...
+    '. Slope is ', num2str(round(p(1), 2)), '; Intercept is ', num2str(p(2))]);
+legend("Experimental data", "Linear fit", 'Location', 'northwest')
+hold off
+
+
+
 
 
