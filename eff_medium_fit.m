@@ -159,7 +159,7 @@ rsq = 1 - SSresid/SStotal; % R² calculation
 % coefficients for Kl vs. K_eff
 p_r = polyfit(sigma_FEA, K_layer, 1);
 % Display the equation for reference
-fprintf('The linear equation is: K_l = %.2f*K_ef + %.6f\n', p_r(1), ...
+fprintf('The linear equation is: K_l = %.2f*K_FEA + %.6f\n', p_r(1), ...
     p_r(2));
 
 % plot
@@ -173,6 +173,24 @@ title(['Linear Fit with R2 = ', num2str(rsq),...
     '. Slope is ', num2str(round(p(1), 2)), '; Intercept is ', num2str(p(2))]);
 legend("Experimental data", "Linear fit", 'Location', 'northwest')
 hold off
+
+%% now fitting FEA curve to experimental
+
+% first, let's extract FEA points that coincide on vf with experimental
+% I just get positions visually from the previous graph and reassign to
+% another variable here
+
+% experimental
+phi_fit = phi([2,4,5,6,8]);
+sigma_fit = sigma([2,4,5,6,8]);
+
+% FEA
+phi_FEA_fit = phi_FEA([2,3,5,6,7]);
+sigma_FEA_fit = sigma_FEA([2,3,5,6,7]);
+% (should be phi_fit == phi_FEA_fit)
+
+% now to find what K_l should be in reality, using K_l vs K_Eff coef.
+K_layer_eval = polyval(p_r, sigma_fit)
 
 
 
