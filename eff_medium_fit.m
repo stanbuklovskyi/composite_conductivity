@@ -192,6 +192,57 @@ sigma_FEA_fit = sigma_FEA([2,3,5,6,7]);
 % now to find what K_l should be in reality, using K_l vs K_Eff coef.
 K_layer_eval = polyval(p_r, sigma_fit)
 
+%% find a "real" curve based on adjusted K_layer values
+% K adjusted for reverse fit
+phi_adj_wt = [0.5; 1; 2.5; 5; 10]; % wt% cross referenced with FEA results
+sigma_adj = [0.0699; 2.1144; 26.024; 95.0149; 345.6321];
+
+% reverse fit
+[expression_adj, params_adj, phi_adj] = eff_medium(phi_adj_wt, sigma_adj);
+
+%% plot initial curve vs. adjusted
+figure(6)
+fimplicit(implicit_expr_sub, [0 0.2 1e-10 1e4], 'LineWidth', 1.5, ...
+    'Color', '#ff8d33'); 
+hold on
+fimplicit(expression_adj, [0 0.2 1e-10 1e4], 'LineWidth', 1.5, ...
+    'Color', '#33a2ff'); 
+%plot(phi, sigma, 'v', 'MarkerFaceColor', '#ff8d33', 'MarkerEdgeColor', '#ff8d33')
+%plot(phi_adj, sigma_adj, 'v', 'MarkerFaceColor', '#33a2ff', 'MarkerEdgeColor', '#33a2ff')
+hold off
+set(gca, 'YScale', 'log'); % Set y-axis to logarithmic scale
+%title(['Data and Fitted Implicit Curve, R^2 = ', num2str(r_squared)]);
+xlabel('\phi volume fraction');
+ylabel('\sigma conductivity (S/m)');
+legend(['Random CB distribution | \phi_c = ', num2str(round(params(2),4)),...
+    ' | t = ', num2str(round(params(1),2))],...
+    ['\muCT-driven CB distribution | \phi_c = ', num2str(round(params_adj(2),4)),...
+    ' | t = ', num2str(round(params_adj(1),2))], 'location', 'best');
+ax = gca;
+ax.FontSize = 12;
+
+figure(7)
+fimplicit(implicit_expr_sub, [0.02 0.5 1e-10 1e4], 'LineWidth', 1.5, ...
+    'Color', '#ff8d33'); 
+hold on
+fimplicit(expression_adj, [0.02 0.5 1e-10 1e4], 'LineWidth', 1.5, ...
+    'Color', '#33a2ff'); 
+%plot(phi, sigma, 'v', 'MarkerFaceColor', '#ff8d33', 'MarkerEdgeColor', '#ff8d33')
+%plot(phi_adj, sigma_adj, 'v', 'MarkerFaceColor', '#33a2ff', 'MarkerEdgeColor', '#33a2ff')
+hold off
+set(gca, 'YScale', 'log'); % Set y-axis to logarithmic scale
+%title(['Data and Fitted Implicit Curve, R^2 = ', num2str(r_squared)]);
+xlabel('\phi volume fraction');
+ylabel('\sigma conductivity (S/m)');
+legend(['Random CB distribution | \phi_c = ', num2str(round(params(2),4)),...
+    ' | t = ', num2str(round(params(1),2))],...
+    ['\muCT-driven CB distribution | \phi_c = ', num2str(round(params_adj(2),4)),...
+    ' | t = ', num2str(round(params_adj(1),2))], 'location', 'best');
+ax = gca;
+ax.FontSize = 12;
+
+
+
 
 
 
