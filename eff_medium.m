@@ -21,7 +21,7 @@ function [implicit_expr_sub, params, phi] = eff_medium(data_phi,data_sigma)
 % be defined with "syms phi_sym sigma_sym" expression in the main code.
 % Else, symbols are unrecognized
 %
-% 'phi' - volume fraction converted from wt%.  
+% 'phi' - volume fraction wt%.  
 %--------------------------------------------------------------------------
 
 % conversion wt% to volume fractions (using densities of constituents)
