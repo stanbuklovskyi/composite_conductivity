@@ -68,7 +68,7 @@ implicit_expr_sub = subs(implicit_expr, {t, phi_c}, {params(1), params(2)});
 
 % Plot the data points
 figure;
-plot(phi, sigma, '^', 'DisplayName', 'Data');
+plot(phi, sigma, '^','MarkerFaceColor', 'b', 'MarkerEdgeColor', 'b', 'DisplayName', 'Data');
 hold on;
 
 % Plot the implicit curve
@@ -110,11 +110,14 @@ model_output.Properties.VariableNames = {'phi', 'sigma'};
 model_output
 %%
 figure(3)
-plot(phi, sigma, '*')
+plot(phi, sigma, '^', 'MarkerSize', 7, 'MarkerFaceColor', '#33a2ff', 'MarkerEdgeColor', '#33a2ff')
 set(gca, 'YScale', 'log');
-title("Experimental data only")
+% title("Experimental data only")
 xlabel('\phi volume fraction');
 ylabel('\sigma conductivity');
+ylim([0 1e3])
+ax = gca;
+ax.FontSize = 14;
 
 %% extracting values from FEA results
 data_FEA = readtable('auto_properties_thermal.xlsx');
@@ -194,8 +197,9 @@ K_layer_eval = polyval(p_r, sigma_fit)
 
 %% find a "real" curve based on adjusted K_layer values
 % K adjusted for reverse fit
-phi_adj_wt = [0.5; 1; 2.5; 5; 10]; % wt% cross referenced with FEA results
-sigma_adj = [0.0699; 2.1144; 26.024; 95.0149; 345.6321];
+phi_adj = [0.022, 0.044, 0.112, 0.226, 0.465]'; % vf carbon in layer
+phi_adj_wt = wtp_to_vf(phi_adj, 1);
+sigma_adj = [0.8; 4.71; 46.65; 252.24; 1409.96];
 
 % reverse fit
 [expression_adj, params_adj, phi_adj] = eff_medium(phi_adj_wt, sigma_adj);
@@ -222,13 +226,13 @@ ax = gca;
 ax.FontSize = 12;
 
 figure(7)
-fimplicit(implicit_expr_sub, [0.02 0.5 1e-10 1e4], 'LineWidth', 1.5, ...
+fimplicit(implicit_expr_sub, [0 0.5 1e-10 1e4], 'LineWidth', 1.5, ...
     'Color', '#ff8d33'); 
 hold on
-fimplicit(expression_adj, [0.02 0.5 1e-10 1e4], 'LineWidth', 1.5, ...
+fimplicit(expression_adj, [0 0.5 1e-10 1e4], 'LineWidth', 1.5, ...
     'Color', '#33a2ff'); 
-%plot(phi, sigma, 'v', 'MarkerFaceColor', '#ff8d33', 'MarkerEdgeColor', '#ff8d33')
-%plot(phi_adj, sigma_adj, 'v', 'MarkerFaceColor', '#33a2ff', 'MarkerEdgeColor', '#33a2ff')
+plot(phi, sigma, 'v', 'MarkerFaceColor', '#ff8d33', 'MarkerEdgeColor', '#ff8d33')
+plot(phi_adj, sigma_adj, 'v', 'MarkerFaceColor', '#33a2ff', 'MarkerEdgeColor', '#33a2ff')
 hold off
 set(gca, 'YScale', 'log'); % Set y-axis to logarithmic scale
 %title(['Data and Fitted Implicit Curve, R^2 = ', num2str(r_squared)]);
