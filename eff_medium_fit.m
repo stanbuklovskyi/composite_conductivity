@@ -37,6 +37,7 @@ initial_guess = [1, 0.002];
 lower_bounds = [1, 0.002];
 upper_bounds = [5, 0.5];
 
+
 % Fit the model to the data using fminsearch
 % opts = optimset('Display', 'off');
 % params = fminsearch(objective_func, initial_guess, opts);
