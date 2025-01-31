@@ -93,7 +93,7 @@ hold on;
 fimplicit(implicit_expr_sub, [0 0.7 0 1e4]); % Adjust the range as needed
 set(gca, 'YScale', 'log'); % Set y-axis to logarithmic scale
 %title(['Data and Fitted Implicit Curve, R^2 = ', num2str(r_squared)]);
-xlabel('V_f');
+xlabel('V_{CB}');
 ylabel('\sigma [S/m]');
 legend('Experiments', ['Effective medium | \phi_c = ', num2str(round(params(2),4)), ...
     ' | t = ', num2str(round(params(1),2))], 'Location', 'best');

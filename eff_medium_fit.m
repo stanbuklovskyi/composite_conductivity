@@ -76,7 +76,7 @@ hold on;
 fimplicit(implicit_expr_sub, [0 0.7 0 1e5]); % Adjust the range as needed
 set(gca, 'YScale', 'log'); % Set y-axis to logarithmic scale
 %title(['Data and Fitted Implicit Curve, R^2 = ', num2str(r_squared)]);
-xlabel('V_f');
+xlabel('V_{CB}');
 ylabel('\sigma [S/m]');
 legend('Experiments', 'Effective medium fit', 'Location', 'best');
 ax = gca;
@@ -114,7 +114,7 @@ figure(3)
 plot(phi, sigma, '^', 'MarkerSize', 7, 'MarkerFaceColor', '#33a2ff', 'MarkerEdgeColor', '#33a2ff')
 set(gca, 'YScale', 'log');
 % title("Experimental data only")
-xlabel('V_f');
+xlabel('V_{CB}');
 ylabel('\sigma [S/m]');
 ylim([0 1e3])
 ax = gca;
@@ -140,7 +140,7 @@ plot(phi_FEA, sigma_FEA, 'o-', 'MarkerFaceColor', 'g', 'MarkerEdgeColor', 'g', '
 hold off
 set(gca, 'YScale', 'log');
 xticks([0:0.01:max(phi), phi(end)])
-xlabel('V_f');
+xlabel('V_{CB}');
 ylabel('\sigma [S/m]');
 legend("Experimental", "Effective medium fit", "FEA results", 'Location',...
     'best', 'Box', 'off');
@@ -217,7 +217,7 @@ fimplicit(expression_adj, [0 0.2 1e-10 1e4], 'LineWidth', 1.5, ...
 hold off
 set(gca, 'YScale', 'log'); % Set y-axis to logarithmic scale
 %title(['Data and Fitted Implicit Curve, R^2 = ', num2str(r_squared)]);
-xlabel('V_f');
+xlabel('V_{CB}');
 ylabel('\sigma [S/m]');
 legend(['Random CB distribution | \phi_c = ', num2str(round(params(2),4)),...
     ' | t = ', num2str(round(params(1),2))],...
@@ -237,7 +237,7 @@ plot(phi_adj, sigma_adj, 'v', 'MarkerFaceColor', '#33a2ff', 'MarkerEdgeColor', '
 hold off
 set(gca, 'YScale', 'log'); % Set y-axis to logarithmic scale
 %title(['Data and Fitted Implicit Curve, R^2 = ', num2str(r_squared)]);
-xlabel('V_f');
+xlabel('V_{CB}');
 ylabel('\sigma [S/m]');
 legend(['Random CB distribution | \phi_c = ', num2str(round(params(2),4)),...
     ' | t = ', num2str(round(params(1),2))],...
