@@ -53,7 +53,7 @@ initial_guess = [1, 0.002];
 
 % Set bounds for the parameters
 lower_bounds = [1, 0.002];
-upper_bounds = [5, 0.5];
+upper_bounds = [5, 0.0028];
 
 % Fit the model to the data using fminsearch
 % opts = optimset('Display', 'off');
@@ -90,7 +90,7 @@ plot(phi, sigma, 'v', 'MarkerFaceColor', 'b', 'MarkerEdgeColor', 'b', 'DisplayNa
 hold on;
 
 % Plot the implicit curve
-fimplicit(implicit_expr_sub, [0 0.7 0 1e4]); % Adjust the range as needed
+fimplicit(implicit_expr_sub, [0 1 0 1e4]); % Adjust the range as needed
 set(gca, 'YScale', 'log'); % Set y-axis to logarithmic scale
 %title(['Data and Fitted Implicit Curve, R^2 = ', num2str(r_squared)]);
 xlabel('V_{CB}');

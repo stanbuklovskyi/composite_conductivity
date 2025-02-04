@@ -73,7 +73,7 @@ plot(phi, sigma, '^','MarkerFaceColor', 'b', 'MarkerEdgeColor', 'b', 'DisplayNam
 hold on;
 
 % Plot the implicit curve
-fimplicit(implicit_expr_sub, [0 0.7 0 1e5]); % Adjust the range as needed
+fimplicit(implicit_expr_sub, [0 0.2 0 1e3]); % Adjust the range as needed
 set(gca, 'YScale', 'log'); % Set y-axis to logarithmic scale
 %title(['Data and Fitted Implicit Curve, R^2 = ', num2str(r_squared)]);
 xlabel('V_{CB}');
@@ -122,20 +122,20 @@ ax.FontSize = 14;
 
 %% extracting values from FEA results
 data_FEA = readtable('auto_properties_thermal.xlsx');
-data_FEA.wt_ = data_FEA.wt_ / 100; % no percents
-phi_FEA = data_FEA.wt_ ./ (data_FEA.wt_ + (1 - data_FEA.wt_) .* (ro_CB ./ ro_UHMWPE));
-%add zero at the beg.
+data_FEA.wt__2 = data_FEA.wt__2 / 100; % no percents
+phi_FEA = data_FEA.wt__2 ./ (data_FEA.wt__2 + (1 - data_FEA.wt__2) .* (ro_CB ./ ro_UHMWPE));
+%add zero at the beg. 
 phi_FEA = [0;phi_FEA];
-sigma_FEA = [1e-10; data_FEA.K_avg_1];
+sigma_FEA = [1e-10; data_FEA.K_avg_adj];
 %% experimental / medium / FEA results comparison
 % experimental dataset (phi,sigma)
 % curve fit dataset (phi_values, sigma_values)
 % FEA dataset (phi_FEA, K_avg_1 (column name from file))
 
 figure(4)
-plot(phi, sigma, 'v', 'MarkerFaceColor', 'b', 'MarkerEdgeColor', 'b')
+plot(phi([1:end-1]), sigma([1:end-1]), 'v', 'MarkerFaceColor', 'b', 'MarkerEdgeColor', 'b')
 hold on
-plot(phi_values, sigma_values, '*', 'MarkerFaceColor', '#FFA500', 'MarkerEdgeColor', '#FFA500')
+plot(phi_values([1:end-1]), sigma_values([1:end-1]), '*', 'MarkerFaceColor', '#FFA500', 'MarkerEdgeColor', '#FFA500')
 plot(phi_FEA, sigma_FEA, 'o-', 'MarkerFaceColor', 'g', 'MarkerEdgeColor', 'g', 'Color', 'g')
 hold off
 set(gca, 'YScale', 'log');
