@@ -30,6 +30,20 @@ model_output = table(phi_values, sigma_values);
 model_output.Properties.VariableNames = {'phi', 'sigma'};
 model_output
 
+%% plot model output if needed
+plot(model_output.phi, model_output.sigma, 'v', 'MarkerFaceColor', 'b', 'MarkerEdgeColor', 'b')
+hold on
+fimplicit(implicit_expr_sub, [0 1 0 1e4]); % Adjust the range as needed
+set(gca, 'YScale', 'log'); % Set y-axis to logarithmic scale
+%title(['Data and Fitted Implicit Curve, R^2 = ', num2str(r_squared)]);
+xlabel('V_{CB}');
+ylabel('\sigma [S/m]');
+ax = gca;
+ax.FontSize = 12;
+legend('Experiments', ['Effective medium | \phi_c = ', num2str(round(params(2),4)), ...
+    ' | t = ', num2str(round(params(1),2))], 'Location', 'best');
+hold off
+
 %% reverse fit the curve 
 model_output_phi = wtp_to_vf(model_output.phi, 1);
 model_output_sigma = model_output.sigma;
