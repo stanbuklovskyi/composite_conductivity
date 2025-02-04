@@ -122,11 +122,11 @@ ax.FontSize = 14;
 
 %% extracting values from FEA results
 data_FEA = readtable('auto_properties_thermal.xlsx');
-data_FEA.wt__2 = data_FEA.wt__2 / 100; % no percents
-phi_FEA = data_FEA.wt__2 ./ (data_FEA.wt__2 + (1 - data_FEA.wt__2) .* (ro_CB ./ ro_UHMWPE));
+data_FEA.wt__1 = data_FEA.wt__1 / 100; % no percents
+phi_FEA = data_FEA.wt__1 ./ (data_FEA.wt__1 + (1 - data_FEA.wt__1) .* (ro_CB ./ ro_UHMWPE));
 %add zero at the beg. 
 phi_FEA = [0;phi_FEA];
-sigma_FEA = [1e-10; data_FEA.K_avg_adj];
+sigma_FEA = [1e-10; data_FEA.K_avg_1];
 %% experimental / medium / FEA results comparison
 % experimental dataset (phi,sigma)
 % curve fit dataset (phi_values, sigma_values)
@@ -136,10 +136,11 @@ figure(4)
 plot(phi([1:end-1]), sigma([1:end-1]), 'v', 'MarkerFaceColor', 'b', 'MarkerEdgeColor', 'b')
 hold on
 plot(phi_values([1:end-1]), sigma_values([1:end-1]), '*', 'MarkerFaceColor', '#FFA500', 'MarkerEdgeColor', '#FFA500')
-plot(phi_FEA, sigma_FEA, 'o-', 'MarkerFaceColor', 'g', 'MarkerEdgeColor', 'g', 'Color', 'g')
+plot(phi_FEA([1:end-1]), sigma_FEA([1:end-1]), 'o-', 'MarkerFaceColor', 'g', 'MarkerEdgeColor', 'g', 'Color', 'g')
 hold off
 set(gca, 'YScale', 'log');
 xticks([0:0.01:max(phi), phi(end)])
+ylim([0 10^3])
 xlabel('V_{CB}');
 ylabel('\sigma [S/m]');
 legend("Experimental", "Effective medium fit", "FEA results", 'Location',...
@@ -150,7 +151,7 @@ ax.FontSize = 12;
 %% check if K_eff is linear with K_layer
 
 % values from effective medium equation
-K_layer = [1e-10; 0.80; 4.71; 13.35; 46.65; 252.24;1409.96; 3934.13];
+K_layer = [1e-10; 0.80; 4.71; 13.35; 46.65; 252.24; 1409.96; 3934.13];
 
 % check linearity with linear fit curve on data
 p = polyfit(K_layer, sigma_FEA, 1); % Linear fit (degree 1)
